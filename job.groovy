@@ -145,4 +145,4 @@ buildPipelineView('DevOps-task') {
     alwaysAllowManualTrigger()
     showPipelineParameters()
     refreshFrequency(5)
-}
+ }
