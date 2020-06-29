@@ -127,6 +127,7 @@ job("task6_jb4"){
     upstreamProjects("task6_jb3")
     threshold("Fail")
    } 
+         }
         steps {
         shell('''
 if [ $flag-html -eq 1 ] || [ flag-php -eq 1 ]
@@ -135,8 +136,7 @@ sudo python3 /rahul/mail.py
 fi''')
       }
 }
-
-buildPipelineView('DevOps-task') {
+buildPipelineView('DevOps-task'){
     filterBuildQueue()
     filterExecutors()
     title('CI/CD Pipeline')
@@ -145,4 +145,4 @@ buildPipelineView('DevOps-task') {
     alwaysAllowManualTrigger()
     showPipelineParameters()
     refreshFrequency(5)
- }
+}
