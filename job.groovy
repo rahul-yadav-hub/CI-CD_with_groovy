@@ -1,7 +1,7 @@
 job("task6_jb1"){
         description("This will pull the developers code from github & filter & save the php and html codes in different directories")
         scm {
-                 github('rahul-yadav-hub/DevOps_task2.git' , 'master')
+                 github('rahul-yadav-hub/DevOps_task2' , 'master')
              }
         triggers {
                 scm("* * * * *")
