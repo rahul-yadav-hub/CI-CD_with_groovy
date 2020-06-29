@@ -122,6 +122,11 @@ fi''')
 
 job("task6_jb4"){
         description("email notification")
+         triggers {
+                upstream {
+    upstreamProjects("task6_jb3")
+    threshold("Fail")
+   } 
         steps {
         shell('''
 if [ $flag-html -eq 1 ] || [ flag-php -eq 1 ]
