@@ -107,7 +107,7 @@ job("task6_jb3"){
 then
 echo "Running Good"
 else
-flag-html=1
+flag_html=1
 fi
 
 status=$(curl -o /dev/null -sw "%{http_code}" http://192.168.99.100:30002/web1.php)
@@ -115,7 +115,7 @@ status=$(curl -o /dev/null -sw "%{http_code}" http://192.168.99.100:30002/web1.p
 then
 echo "Running Good"
 else
-flag-php=1
+flag_php=1
 fi''')
       }
 }
@@ -130,7 +130,7 @@ job("task6_jb4"){
          }
         steps {
         shell('''
-if [ $flag-html -eq 1 ] || [ flag-php -eq 1 ]
+if [ $flag_html -eq 1 ] || [ flag_php -eq 1 ]
 then
 sudo python3 /rahul/mail.py
 fi''')
