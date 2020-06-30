@@ -1,0 +1,42 @@
+if sudo ls /rahul | grep html
+then
+  if sudo kubectl get pvc --kubeconfig /rahul/kubectlconfig | grep html
+  then
+  echo "pvc for html already created"
+  else
+  sudo kubectl create -f /rahul/deply/html-pvc.yaml --kubeconfig /rahul/kubectlconfig
+  fi
+  if sudo kubectl get deploy --kubeconfig /rahul/kubectlconfig | grep html-webserver
+  then
+    echo "already running"
+  else
+    sudo kubectl create -f /rahul/deply/html-deply.yaml --kubeconfig /rahul/kubectlconfig
+  fi
+else
+echo "no html code from developer to host"
+fi
+
+if sudo ls /rahul | grep php
+then
+  if sudo kubectl get pvc --kubeconfig /rahul/kubectlconfig | grep php
+  then
+  echo "pvc for php already created"
+  else
+  sudo kubectl create -f /rahul/deply/php-pvc.yaml --kubeconfig /rahul/kubectlconfig
+  fi
+  if sudo kubectl get deploy --kubeconfig /rahul/kubectlconfig | grep php-webserver
+  then
+    echo "already running"
+  else
+    sudo kubectl create -f /rahul/deply/php-deply.yaml --kubeconfig /rahul/kubectlconfig
+  fi
+else
+echo "no php code from developer to host"
+fi
+
+
+ sleep 60
+htmlpod=$(sudo kubectl get pod -l app=html-webserver -o jsonpath="{.items[0].metadata.name}" --kubeconfig /rahul/kubectlconfig)
+sudo kubectl cp /rahul/html/*   $htmlpod:/usr/local/apache2/htdocs --kubeconfig /rahul/kubectlconfig
+phppod=$(sudo kubectl get pod -l app=php-webserver -o jsonpath="{.items[0].metadata.name}" --kubeconfig /rahul/kubectlconfig)
+sudo kubectl cp /rahul/php/* $phppod:/var/www/html --kubeconfig /rahul/kubectlconfig
