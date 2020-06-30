@@ -111,7 +111,7 @@ echo " not Running good"
 fi
 
 status=$(curl -o /dev/null -sw "%{http_code}" http://192.168.99.100:30002/web1.php)
- if [[$status == 200 ]]
+ if [[ $status == 200 ]]
 then
 echo "Running Good"
 else
@@ -130,7 +130,7 @@ job("task6_jb4"){
          }
         steps {
         shell('''status=$(curl -o /dev/null -sw "%{http_code}" http://192.168.99.100:30002/web1.php)
- if [[$status == 200 ]]
+ if [[ $status == 200 ]]
 then
 echo "Running Good"
 else
