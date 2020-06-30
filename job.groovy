@@ -103,11 +103,11 @@ job("task6_jb3"){
         }
         steps {
         shell('''status=$(curl -o /dev/null -sw "%{http_code}" http://192.168.99.100:30001/web.html)
- if [[$status == 200 ]]
+ if [[ $status == 200 ]]
 then
 echo "Running Good"
 else
-flag_html=1
+echo " not Running good"
 fi
 
 status=$(curl -o /dev/null -sw "%{http_code}" http://192.168.99.100:30002/web1.php)
@@ -115,7 +115,7 @@ status=$(curl -o /dev/null -sw "%{http_code}" http://192.168.99.100:30002/web1.p
 then
 echo "Running Good"
 else
-flag_php=1
+echo " not Running good"
 fi''')
       }
 }
@@ -129,13 +129,23 @@ job("task6_jb4"){
    } 
          }
         steps {
-        shell('''
-if [ $flag_html -eq 1 ] || [ flag_php -eq 1 ]
+        shell('''status=$(curl -o /dev/null -sw "%{http_code}" http://192.168.99.100:30002/web1.php)
+ if [[$status == 200 ]]
 then
+echo "Running Good"
+else
+sudo python3 /rahul/mail.py
+fi
+status=$(curl -o /dev/null -sw "%{http_code}" http://192.168.99.100:30001/web.html)
+ if [[ $status == 200 ]]
+then
+echo "Running Good"
+else
 sudo python3 /rahul/mail.py
 fi''')
       }
 }
+
 buildPipelineView('DevOps-task'){
     filterBuildQueue()
     filterExecutors()
